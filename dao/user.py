@@ -32,6 +32,5 @@ class UserDAO:
 
     def get_by_username(self, username):
         user = self.session.query(User).filter(User.username==username).all()
-
         return user[0]
 

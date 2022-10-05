@@ -1,12 +1,13 @@
-from flask import request, current_app
+
 import jwt
+from flask import request, current_app
 
 from implemented import user_service
 
 
 def auth_required(func):
     def wrapper(*args, **kwargs):
-        token = request.headers.environ.get('AUTH_AUTHORIZATION').replace('Bearer', '')
+        token = request.headers.environ.get('AUTH_AUTHORIZATION', " ").replace('Bearer', '')
         if not token:
             return "Токен не найден"
         try:

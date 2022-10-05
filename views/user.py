@@ -10,13 +10,11 @@ user_ns = Namespace('users')
 
 @user_ns.route('/')
 class UsersView(Resource):
-    @auth_required
     def get(self):
         rs = user_service.get_all()
         res = UserSchema(many=True).dump(rs)
         return res, 200
 
-    @admin_required
     def post(self):
         req_json = request.json
         if not (req_json.get('username') and req_json.get('password') and req_json.get('role')):
@@ -33,6 +31,7 @@ class UsersView(Resource):
         sm_d = UserSchema().dump(r)
         return sm_d, 200
 
+    @admin_required
     def put(self, bid):
         req_json = request.json
         if "id" not in req_json:
@@ -40,6 +39,7 @@ class UsersView(Resource):
         user_service.update(req_json)
         return "", 204
 
+    @admin_required
     def delete(self, bid):
         user_service.delete(bid)
         return "", 204
