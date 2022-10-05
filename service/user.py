@@ -22,12 +22,5 @@ class UserService:
         self.dao.delete(rid)
 
     def get_by_username(self, username):
-        try:
-            user = self.dao.get_by_username(username=username)
-        except Exception as e:
-            self.session.rollback()
-            print(e)
-            user = None
-
-        return user
+        return self.dao.get_by_username(username=username)
 

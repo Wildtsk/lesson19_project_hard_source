@@ -1,4 +1,3 @@
-
 import jwt
 from flask import request, current_app
 
@@ -29,7 +28,7 @@ def admin_required(func):
             return "Токен не найден"
         try:
             data = jwt.decode(token, key=current_app.config['SECRET_KEY'],
-                       algorithm=current_app.config['ALGORITHM'])
+                              algorithm=current_app.config['ALGORITHM'])
             user = user_service.get_by_username(data.get("username"))
 
             if user:
