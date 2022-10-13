@@ -1,4 +1,5 @@
 from dao.user import UserDAO
+from service.auth import generate_password_hash
 
 
 class UserService:
@@ -12,6 +13,7 @@ class UserService:
         return self.dao.get_all()
 
     def create(self, user_d):
+        user_d['password'] = generate_password_hash(user_d['password'])
         return self.dao.create(user_d)
 
     def update(self, user_d):

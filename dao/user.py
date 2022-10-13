@@ -31,6 +31,15 @@ class UserDAO:
         self.session.commit()
 
     def get_by_username(self, username):
-        user = self.session.query(User).filter(User.username==username).all()
-        return user[0]
+        try:
+            user = self.session.query(User).filter(User.username == username).all()
+            if len(user) > 0:
+                return user[0]
+            else:
+                return None
+        except Exception as e:
+            self.session.rollback()
+            print(e)
+            user = None
+        return user
 

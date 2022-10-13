@@ -21,11 +21,11 @@ class AuthView(Resource):
         user = user_service.get_by_username(username=username)
         if user:
             return generate_token(
-                username=username,
-                password=password,
-                password_hash=user.password,
-                is_refresh=False
-            )
+                    username=username,
+                    password=password,
+                    password_hash=user.password,
+                    is_refresh=False
+                )
 
     def put(self):
         req_json = request.json

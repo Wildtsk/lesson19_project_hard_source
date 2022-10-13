@@ -32,7 +32,7 @@ def generate_token(username, password_hash, password, is_refresh=True):
         return None
     if not is_refresh:
         if not compare_password(password_user=password, password_hash=password_hash):
-            return None
+            return f'ошибка в сравнении,password_hash={password_hash}, password={password}, generate_password_hash(password)={generate_password_hash(password)}'
 
     data = {
         "username": username,
@@ -55,6 +55,7 @@ def generate_token(username, password_hash, password, is_refresh=True):
         "access_token": access_token,
         "refresh_token": refresh_token
     }
+
 
 def approve_token(token):
     data = jwt.decode(token, key=current_app.config['SECRET_KEY'],

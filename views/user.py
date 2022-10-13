@@ -3,6 +3,7 @@ from flask_restx import Resource, Namespace
 
 from dao.model.user import UserSchema
 from implemented import user_service
+from service.auth import generate_password_hash, generate_token
 from service.decorators import admin_required, auth_required
 
 user_ns = Namespace('users')
@@ -20,6 +21,7 @@ class UsersView(Resource):
         if not (req_json.get('username') and req_json.get('password') and req_json.get('role')):
             return "Что то не передали"
 
+        req_json['password'] = generate_password_hash(req_json['password'])
         user = user_service.create(req_json)
         return "", 201, {"location": f"/users/{user.id}"}
 
