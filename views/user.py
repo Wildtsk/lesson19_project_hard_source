@@ -21,7 +21,7 @@ class UsersView(Resource):
         if not (req_json.get('username') and req_json.get('password') and req_json.get('role')):
             return "Что то не передали"
 
-        req_json['password'] = generate_password_hash(req_json['password'])
+        # req_json['password'] = generate_password_hash(req_json['password'])
         user = user_service.create(req_json)
         return "", 201, {"location": f"/users/{user.id}"}
 
